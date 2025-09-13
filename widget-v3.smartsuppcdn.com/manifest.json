@@ -1,0 +1,52 @@
+{
+  "_WidgetMessengerInput-ICLJ9Lwf.js": {
+    "file": "assets/WidgetMessengerInput-ICLJ9Lwf.js",
+    "name": "WidgetMessengerInput",
+    "imports": [
+      "src/main.ts"
+    ],
+    "dynamicImports": [
+      "node_modules/.pnpm/emoji-mart@5.6.0/node_modules/emoji-mart/dist/module.js"
+    ]
+  },
+  "node_modules/.pnpm/emoji-mart@5.6.0/node_modules/emoji-mart/dist/module.js": {
+    "file": "assets/module-evC7HAOT.js",
+    "name": "module",
+    "src": "node_modules/.pnpm/emoji-mart@5.6.0/node_modules/emoji-mart/dist/module.js",
+    "isDynamicEntry": true
+  },
+  "src/frames/messenger/WidgetMessenger.svelte": {
+    "file": "assets/WidgetMessenger-iEyiZIM4.js",
+    "name": "WidgetMessenger",
+    "src": "src/frames/messenger/WidgetMessenger.svelte",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.ts",
+      "_WidgetMessengerInput-ICLJ9Lwf.js"
+    ]
+  },
+  "src/frames/popup/WidgetPopup.svelte": {
+    "file": "assets/WidgetPopup-Bd42AXKw.js",
+    "name": "WidgetPopup",
+    "src": "src/frames/popup/WidgetPopup.svelte",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.ts",
+      "_WidgetMessengerInput-ICLJ9Lwf.js"
+    ]
+  },
+  "src/main.ts": {
+    "file": "assets/main-BJCLWq4A.js",
+    "name": "main",
+    "src": "src/main.ts",
+    "isEntry": true,
+    "dynamicImports": [
+      "src/frames/messenger/WidgetMessenger.svelte",
+      "src/frames/popup/WidgetPopup.svelte"
+    ]
+  },
+  "style.css": {
+    "file": "assets/style-DYkshmes.css",
+    "src": "style.css"
+  }
+}

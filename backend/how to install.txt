@@ -1,0 +1,11 @@
+HOW TO INSTALL
+1. Install WAMP server on your PC
+2. Run the WAMP server
+3. Click on the WAMP icon on the task bar and click on phpmyadmin
+4. Click on Import tab at the top of phpmyadmin program
+5. Select __JForum__.sql file and then ok
+6. Create a new folder named FORUM in c://wamp/www/
+7. Copy the files and folders inside the disk into the folder FORUM folder created
+8. Open your browser and type localhost/FORUM to open the program
+
+NB: Make sure that your apache rewrite_module is enabled.
