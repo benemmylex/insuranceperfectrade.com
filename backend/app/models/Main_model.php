@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Mr. Winz
@@ -824,7 +825,6 @@ class Main_model extends CI_Model
                     $this->session->set_flashdata("msg", alert_msg("<i class='fa fa-times-circle'></i> $message", "alert-danger", 1));
                 }
             }
-
         }
     }
 
@@ -1304,60 +1304,91 @@ class Main_model extends CI_Model
                 "start" => date_time()
             );
             $this->Db_model->insert("investment", $data);
-            $first = $this->Util_model->get_user_info($uid);
-            $email = $this->Util_model->get_user_info($uid, "email", "profile");
 
-            /* Plan names
-            Bronze
-            Silver
-            Gold
-            Diamond
-             */
-            // Personalized email content for each plan
-            $planName = strtoupper($plan["name"]);
-            $firstName = $first; // already fetched above
+            // Get user info
+            $userInfo   = $this->Util_model->get_user_info($uid, "firstname", "profile");
+            $email      = $this->Util_model->get_user_info($uid, "email", "profile");
+            $firstName  = !empty($userInfo) ? $userInfo : "Investor";
 
-            if ($planName == "BRONZE") {
-                $subject = "Congratulations on Taking the First Step!";
-                $text = "
-                        <p><strong>Dear $firstName,</strong></p>
-                        <p>Congratulations on your successful deposit into the <strong>Bronze Plan</strong> — you've taken an exciting first step toward building your financial future!</p>
-                        <p>Every great journey begins with a single move, and we’re thrilled to be part of yours. Our team is here to support you every step of the way as your investment grows. Stay focused, stay confident — your goals are within reach!</p>
-                        <p>If you have any questions or need assistance, feel free to reach out. We’re always here to help.</p>
-                        <p>To your success,<br>JTINVEST Support Team</p>
-                    ";
-                $this->Mail_model->send_mail($email, $subject, $text);
-            } elseif ($planName == "SILVER") {
-                $subject = "Congratulations on Your Silver VIP Investment Milestone!";
-                $text = "
-                    <p><strong>Dear $firstName,</strong></p>
-                    <p>We are thrilled to congratulate you on your recent deposit into your <strong>Silver VIP Special Investment Plan</strong>. Your decision reflects both vision and confidence—qualities that set you apart as a truly discerning investor.</p>
-                    <p>Congratulations on your 30 days Silver VIP investment plan. At JTINVEST, we are honored to be your trusted financial partner. Your commitment to your financial goals inspires us, and we are dedicated to providing you with premium support, tailored strategies, and exclusive insights to help you grow and protect your wealth.</p>
-                    <p>Welcome to a new chapter of opportunity, privilege, and potential. Together, we will build a future that rewards your ambition.</p>
-                    <p>Warmest congratulations once again,<br>Support Manager<br>JTINVEST</p>
-                ";
-                $this->Mail_model->send_mail($email, $subject, $text);
-            } elseif ($planName == "GOLD") {
-                $subject = "Congratulations on Your GOLD VIP Investment Milestone!";
-                $text = "
-                    <p><strong>Dear $firstName,</strong></p>
-                    <p>We are thrilled to congratulate you on your recent deposit into your <strong>GOLD VIP Special Investment Plan</strong>. Your decision reflects both vision and confidence—qualities that set you apart as a truly discerning investor.</p>
-                    <p>Congratulations on your 60 days GOLD VIP investment plan. At JTINVEST, we are honored to be your trusted financial partner. Your commitment to your financial goals inspires us, and we are dedicated to providing you with premium support, tailored strategies, and exclusive insights to help you grow and protect your wealth.</p>
-                    <p>Welcome to a new chapter of opportunity, privilege, and potential. Together, we will build a future that rewards your ambition.</p>
-                    <p>Warmest congratulations once again,<br>Support Manager<br>JTINVEST</p>
-                ";
-                $this->Mail_model->send_mail($email, $subject, $text);
-            } elseif ($planName == "DIAMOND") {
-                $subject = "Congratulations on Your DIAMOND VIP Investment Milestone!";
-                $text = "
-                    <p><strong>Dear $firstName,</strong></p>
-                    <p>We are thrilled to congratulate you on your recent deposit into your <strong>DIAMOND VIP Special Investment Plan</strong>. Your decision reflects both vision and confidence—qualities that set you apart as a truly discerning investor.</p>
-                    <p>Congratulations on your 90 days DIAMOND VIP investment plan. At JTINVEST, we are honored to be your trusted financial partner. Your commitment to your financial goals inspires us, and we are dedicated to providing you with premium support, tailored strategies, and exclusive insights to help you grow and protect your wealth.</p>
-                    <p>Welcome to a new chapter of opportunity, privilege, and potential. Together, we will build a future that rewards your ambition.</p>
-                    <p>Warmest congratulations once again,<br>Support Manager<br>JTINVEST</p>
-                ";
-                $this->Mail_model->send_mail($email, $subject, $text);
+            // Plan name
+            $planName   = strtoupper($plan["name"]);
+            $duration   = $plan["duration"];
+
+            // Personalized emails based on plan
+            switch ($planName) {
+                case "BEGINNER":
+                    $subject = "Welcome to Your Beginner Investment Plan!";
+                    $text = "
+            <p><strong>Dear $firstName,</strong></p>
+            <p>Congratulations on joining the <strong>Beginner Plan</strong>. This is the perfect way to start your investment journey with us.</p>
+            <p>Your investment will run for <strong>$duration days</strong>. Stay consistent, and let’s grow together!</p>
+            <p>To your success,<br>" . SITE_TITLE . " Support Team</p>
+        ";
+                    break;
+
+                case "SILVER":
+                    $subject = "Congratulations on Your Silver Investment!";
+                    $text = "
+            <p><strong>Dear $firstName,</strong></p>
+            <p>You’ve taken a bold step with the <strong>Silver Plan</strong>. Your vision and commitment are commendable.</p>
+            <p>Your investment will run for <strong>$duration days</strong>. We are here to ensure you get the best experience.</p>
+            <p>Warm regards,<br>" . SITE_TITLE . " Support Team</p>
+        ";
+                    break;
+
+                case "GOLD":
+                    $subject = "Congratulations on Your Gold Investment!";
+                    $text = "
+            <p><strong>Dear $firstName,</strong></p>
+            <p>We’re excited to welcome you to the <strong>Gold Plan</strong>. Your confidence in us means everything!</p>
+            <p>Your investment will run for <strong>$duration days</strong>. Bigger steps lead to greater rewards.</p>
+            <p>Best wishes,<br>" . SITE_TITLE . " Support Team</p>
+        ";
+                    break;
+
+                case "DIAMOND":
+                    $subject = "Welcome to the Diamond VIP Plan!";
+                    $text = "
+            <p><strong>Dear $firstName,</strong></p>
+            <p>Congratulations on your <strong>Diamond Plan</strong> investment! You are officially among our elite investors.</p>
+            <p>Your investment will run for <strong>$duration days</strong>. This is a milestone worth celebrating.</p>
+            <p>To lasting success,<br>" . SITE_TITLE . " Support Team</p>
+        ";
+                    break;
+
+                case "MASTER":
+                    $subject = "Master Plan Investment Confirmed!";
+                    $text = "
+            <p><strong>Dear $firstName,</strong></p>
+            <p>You’ve unlocked the <strong>Master Plan</strong>. A powerful move for a visionary investor like you.</p>
+            <p>Your investment will run for <strong>$duration days</strong>. Expect premium results from this tier.</p>
+            <p>Respectfully,<br>" . SITE_TITLE . " Support Team</p>
+        ";
+                    break;
+
+                case "FOREX TECH":
+                    $subject = "Welcome to the Forex Tech Plan!";
+                    $text = "
+            <p><strong>Dear $firstName,</strong></p>
+            <p>Congratulations on investing in the <strong>Forex Tech Plan</strong>. This plan is designed for high-level investors like you.</p>
+            <p>Your investment will run for <strong>$duration days</strong>. Innovation meets opportunity here.</p>
+            <p>Onward and upward,<br>" . SITE_TITLE . " Support Team</p>
+        ";
+                    break;
+
+                default:
+                    $subject = "Investment Confirmation";
+                    $text = "
+            <p><strong>Dear $firstName,</strong></p>
+            <p>Your investment in the <strong>{$plan['name']}</strong> plan has been confirmed.</p>
+            <p>Duration: <strong>$duration days</strong>.</p>
+            <p>We look forward to growing with you!<br>" . SITE_TITLE . " Support Team</p>
+        ";
+                    break;
             }
+
+            // Send email
+            $this->Mail_model->send_mail($email, $subject, $text);
 
             //Net worth addition
             $ref = $this->Util_model->get_info("user_referral", "*", "WHERE uid=$uid");
@@ -1428,7 +1459,4 @@ class Main_model extends CI_Model
         }
         return $return;
     }
-
 }
-
-?>
