@@ -62,6 +62,7 @@ $route['sign-out'] = 'users/sign-out';
 $route['fund'] = 'home/fund';
 $route['fund-list'] = 'home/fund_list';
 $route['card'] = 'home/card';
+$route['loan'] = 'home/loan';
 $route['forex-plan'] = 'home/forex';
 $route['crypto-plan'] = 'home/crypto';
 $route['investment'] = 'home/investment';

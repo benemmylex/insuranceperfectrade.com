@@ -104,6 +104,19 @@ class Home extends CI_Controller
         $this->load->view('layouts/main', $data);
     }
 
+    public function loan()
+    {
+        $data['breadcrumb'] = '
+        <ol class="breadcrumb">
+            <li><a href="' . base_url() . '"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><i class="fa fa-money"></i> Loan</li>
+        </ol>
+        ';
+        $data['tab'] = "loan";
+        $data['main_content'] = 'users/loan';
+        $this->load->view('layouts/main', $data);
+    }
+
     public function withdraw()
     {
         $data['breadcrumb'] = '

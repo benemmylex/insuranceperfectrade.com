@@ -77,6 +77,11 @@
                         <i class="fa fa-credit-card"></i> <span>Card</span>
                     </a>
                 </li>
+                <li class="<?php echo ($tab == 'loan') ? 'active' : ''; ?>">
+                    <a href="<?php echo base_url(); ?>loan">
+                        <i class="fa fa-money"></i> <span>Loan</span>
+                    </a>
+                </li>
                 <!--<li class="<?php /*echo ($tab == 'forex') ? 'active' : ''; */?>">
                     <a href="<?php /*echo base_url(); */?>forex-plan">
                         <i class="fa fa-bar-chart"></i> <span>Forex Plan</span>
