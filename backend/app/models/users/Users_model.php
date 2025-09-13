@@ -24,7 +24,26 @@ class Users_model extends CI_Model
 
         if ($success == 3) {
             $pro = $inputs['profile'];
+            $main = $inputs['main'];
             $this->send_email_verification_link($pro['uid'],$pro['email']);
+            /* Send email to admin and the detail of registration */
+            $admin_email = $this->Util_model->get_option("admin_email");
+            $subject = "New User Registration";
+            $text = "
+                <p>Hi Admin,</p>
+                <p>A new user has just registered on ".SITE_TITLE." with the following details:</p>
+                <p>
+                <b>Fullname: </b>".$main['name']."<br>
+                <b>Username: </b>".$pro['username']."<br>
+                <b>UID: </b>".$main['uid']."<br>
+                <b>Email: </b>".$pro['email']."<br>
+                <b>Phone: </b>".$pro['phone']."<br>
+                <b>Country: </b>".$pro['country']."<br>
+                </p>
+                <p>Kindly login to your admin panel to view more details of this user.</p>
+            ";
+            $this->Mail_model->send_mail($admin_email, $subject, $text);
+            /* End of email */
             return true;
         } else {
             $main = $inputs['main'];

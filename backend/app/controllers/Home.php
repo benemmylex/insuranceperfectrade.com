@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  
  */
@@ -203,6 +204,18 @@ class Home extends CI_Controller
                 ";
                 $email = $this->Util_model->get_user_info($uid, "email", "profile");
                 $this->Mail_model->send_mail($email, "Deposit Pending", $text);
+                /* Send email to admin with the detail of deposit */
+                $admin_email = $this->Util_model->get_option('admin_email');
+                $admin_text = "
+                    <p><strong>New Deposit Booked</strong></p>
+                    <p>User: <strong>$first</strong> (UID: $uid)</p>
+                    <p>Amount: <strong>$$amount</strong></p>
+                    <p>Method: <strong>" . ucwords($method) . "</strong></p>
+                    <p>Transaction ID: <strong>$trans_id</strong></p>
+                    <p>Date: <strong>$date</strong></p>
+                ";
+                $this->Mail_model->send_mail($admin_email, "New Deposit Booked", $admin_text);
+
                 redirect(base_url() . "fund-list");
             }
         } else {
@@ -271,6 +284,16 @@ class Home extends CI_Controller
             ";
             $email = $this->Util_model->get_user_info($uid, "email", "profile");
             $this->Mail_model->send_mail($email, "Deposit Pending", $text);
+            /* Send email to admin with the detail of deposit */
+            $admin_email = $this->Util_model->get_option('admin_email');
+            $admin_text = "
+                <p><strong>New Deposit Booked</strong></p>
+                <p>User: <strong>$first</strong> (UID: $uid)</p>
+                <p>Amount: <strong>$$amount</strong></p>
+                <p>Method: <strong>Bank Transfer</strong></p>
+                <p>Date: <strong>$date</strong></p>
+            ";
+            $this->Mail_model->send_mail($admin_email, "New Deposit Booked", $admin_text);
             redirect(base_url() . "fund-list");
             //}
         } else {
@@ -334,6 +357,17 @@ class Home extends CI_Controller
                     ";
                     $email = $this->Util_model->get_user_info($uid, "email", "profile");
                     $this->Mail_model->send_mail($email, "Withdrawal Request", $text);
+
+                    /* Send email to admin with the detail of withdrawal */
+                    $admin_email = $this->Util_model->get_option('admin_email');
+                    $admin_text = "
+                        <p><strong>New Withdrawal Booked</strong></p>
+                        <p>User: <strong>$first</strong> (UID: $uid)</p>
+                        <p>Amount: <strong>$$bank_amount</strong></p>
+                        <p>Method: <strong>Bank Transfer</strong></p>
+                        <p>Date: <strong>$date</strong></p>
+                    ";
+                    $this->Mail_model->send_mail($admin_email, "New Withdrawal Booked", $admin_text);
                 } else {
                     $this->session->set_flashdata("msg", alert_msg("<i class='fa fa-check-circle'></i> Withdrawal booked unsuccessfully", "alert-danger", 1));
                 }
@@ -479,6 +513,17 @@ class Home extends CI_Controller
                 ";
                 $email = $this->Util_model->get_user_info($uid, "email", "profile");
                 $this->Mail_model->send_mail($email, "Withdrawal Request", $text);
+
+                /* Send email to admin with the detail of withdrawal */
+                $admin_email = $this->Util_model->get_option('admin_email');
+                $admin_text = "
+                    <p><strong>New Withdrawal Booked</strong></p>
+                    <p>User: <strong>$first</strong> (UID: $uid)</p>
+                    <p>Amount: <strong>$$amount</strong></p>
+                    <p>Method: <strong>" . $_POST['method'] . "</strong></p>
+                    <p>Date: <strong>$date</strong></p>
+                ";
+                $this->Mail_model->send_mail($admin_email, "New Withdrawal Booked", $admin_text);
                 echo 1;
             } else {
                 echo 2;
@@ -552,6 +597,4 @@ class Home extends CI_Controller
         }
         redirect(base_url() . "profile");
     }
-
 }
-?>
