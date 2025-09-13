@@ -54,7 +54,8 @@ class Schedule extends CI_Controller
                         $this->Db_model->update("investment", ["status" => 1], "WHERE id=$row[id]");
                         $this->Main_model->add_to_wallet(
                             //Return complete capital not the percentage
-                            /* get_percentage( */ $row['amount'],/*  $plan['cashout']), */
+                            /* get_percentage( */
+                            $row['amount'],/*  $plan['cashout']), */
                             $row['uid'],
                             0,
                             "Capital return",
@@ -65,61 +66,67 @@ class Schedule extends CI_Controller
                             1
                         ); //Capital return
 
-                        $first = $this->Util_model->get_user_info($uid);
-                        $email = $this->Util_model->get_user_info($uid, "email", "profile");
-
-                        /* Plan names
-                            Bronze
-                            Silver
-                            Gold
-                            Diamond
-                        */
-                        // Personalized email content for each plan
-                        $planName = strtoupper($plan["name"]);
-                        $firstName = $first;
-
-                        if ($planName == "BRONZE") {
-                            $subject = "7days investment Plan Completed – Let’s Keep the Momentum Going!";
-                            $text = "
-                                <p><strong>Dear $firstName,</strong></p>
-                                <p>Congratulations on successfully completing your 7days investment plan! We hope you’re pleased with the progress so far.</p>
-                                <p>Your plan has now expired, and we’re excited to continue supporting your journey. We hope you are looking forward to activate your 7days plan or moving to the next plan. We look forward to your renewal deposit as soon as possible so we can help you build on the momentum you’ve started.</p>
-                                <p>If you have any questions or need assistance with the renewal process, feel free to contact us anytime.</p>
-                                <p>Best regards,<br>JTINVEST Support Team</p>
-                            ";
-                        } elseif ($planName == "SILVER") {
-                            $subject = "Congratulations on Your SLIVER VIP Plan COMPLETED SUCCESSFUL – Let’s Keep the Momentum Going!";
-                            $text = "
-                                <p><strong>Dear $firstName,</strong></p>
-                                <p>Congratulations on your 30days successfully completing your sliver VIP Special Investment Plan! We are delighted to have been part of your financial journey and commend your commitment to reaching your investment goals.</p>
-                                <p>We are looking forward to see you activate your 30 days VIP investment plan. As your VIP plan has now matured, it’s the perfect time to redeposit as soon as possible to continue building on your success. To help you maintain your financial momentum, we encourage you to consider redepositing into one of our exclusive investment options designed to meet your evolving goals.</p>
-                                <p>Our team is here to assist you in selecting the best plan tailored to your needs. Feel free to contact your Relationship Manager or reach out to us directly to explore your reinvestment options.</p>
-                                <p>Thank you for your continued trust in JTINVEST. We look forward to helping you achieve even greater milestones.</p>
-                                <p>Warm regards,<br>JTINVEST Company</p>
-                            ";
-                        } elseif ($planName == "GOLD") {
-                            $subject = "Congratulations on Your GOLD VIP Plan COMPLETED SUCCESSFUL – Let’s Keep the Momentum Going!";
-                            $text = "
-                                <p><strong>Dear $firstName,</strong></p>
-                                <p>Congratulations on your 60days successfully completing your GOLD VIP Special Investment Plan! We are delighted to have been part of your financial journey and commend your commitment to reaching your investment goals.</p>
-                                <p>We are looking forward to see you activate your 60days VIP investment plan. As your VIP plan has now matured, it’s the perfect time to redeposit as soon as possible to continue building on your success. To help you maintain your financial momentum, we encourage you to consider redepositing into one of our exclusive investment options designed to meet your evolving goals.</p>
-                                <p>Our team is here to assist you in selecting the best plan tailored to your needs. Feel free to contact your Relationship Manager or reach out to us directly to explore your reinvestment options.</p>
-                                <p>Thank you for your continued trust in JTINVEST. We look forward to helping you achieve even greater milestones.</p>
-                                <p>Warm regards,<br>JTINVEST Company</p>
-                            ";
-                        } elseif ($planName == "DIAMOND") {
-                            $subject = "Congratulations on Your DIAMOND VIP Plan COMPLETED SUCCESSFUL – Let’s Keep the Momentum Going!";
-                            $text = "
-                                <p><strong>Dear $firstName,</strong></p>
-                                <p>Congratulations on your 90days successfully completing your DIAMOND VIP Special Investment Plan! We are delighted to have been part of your financial journey and commend your commitment to reaching your investment goals.</p>
-                                <p>We are looking forward to see you activate your 90days VIP investment plan. As your VIP plan has now matured, it’s the perfect time to redeposit as soon as possible to continue building on your success. To help you maintain your financial momentum, we encourage you to consider redepositing into one of our exclusive investment options designed to meet your evolving goals.</p>
-                                <p>Our team is here to assist you in selecting the best plan tailored to your needs. Feel free to contact your Relationship Manager or reach out to us directly to explore your reinvestment options.</p>
-                                <p>Thank you for your continued trust in JTINVEST. We look forward to helping you achieve even greater milestones.</p>
-                                <p>Warm regards,<br>JTINVEST Company</p>
-                            ";
+                        // Prepare and send completion email
+                        $firstName = $this->Util_model->get_user_info($uid, "firstname", "profile");
+                        if (empty($firstName)) {
+                            // fallback to whatever get_user_info($uid) returns (username/fullname)
+                            $firstName = $this->Util_model->get_user_info($uid);
                         }
-                        $this->Mail_model->send_mail($email, $subject, $text);
+                        $email = $this->Util_model->get_user_info($uid, "email", "profile");
+                        $planName = strtoupper($plan["name"]);
+                        $planDuration = isset($plan['duration']) ? $plan['duration'] : '';
 
+                        // Messages for all plans (Beginner, Silver, Gold, Diamond, Master, Forex Tech)
+                        $messages = [
+                            "BEGINNER" => [
+                                "subject" => "Your Beginner Plan Has Completed — Congratulations!",
+                                "text" => "<p><strong>Dear {$firstName},</strong></p>
+                               <p>Congratulations on completing your {$planDuration}-day <strong>Beginner</strong> investment plan. We hope you’re pleased with the results and invite you to reinvest or upgrade to another plan.</p>
+                               <p>If you need assistance choosing your next step, our team is here to help.</p>
+                               <p>Best regards,<br>" . SITE_TITLE . " Support Team</p>"
+                            ],
+                            "SILVER" => [
+                                "subject" => "Your Silver Plan Has Matured — Congratulations!",
+                                "text" => "<p><strong>Dear {$firstName},</strong></p>
+                               <p>Congratulations on completing your {$planDuration}-day <strong>Silver</strong> investment plan. This is a great milestone — consider redepositing to continue growing your portfolio.</p>
+                               <p>Warm regards,<br>" . SITE_TITLE . " Support Team</p>"
+                            ],
+                            "GOLD" => [
+                                "subject" => "Your Gold Plan Has Matured — Congratulations!",
+                                "text" => "<p><strong>Dear {$firstName},</strong></p>
+                               <p>Well done on completing your {$planDuration}-day <strong>Gold</strong> investment plan. We’re here to help you reinvest or move to a higher tier.</p>
+                               <p>Warm regards,<br>" . SITE_TITLE . " Support Team</p>"
+                            ],
+                            "DIAMOND" => [
+                                "subject" => "Your Diamond Plan Has Matured — Congratulations!",
+                                "text" => "<p><strong>Dear {$firstName},</strong></p>
+                               <p>Congratulations on completing your {$planDuration}-day <strong>Diamond</strong> investment plan. You’ve reached a key milestone — reach out to our team to discuss next steps.</p>
+                               <p>Warm regards,<br>" . SITE_TITLE . " Support Team</p>"
+                            ],
+                            "MASTER" => [
+                                "subject" => "Your Master Plan Has Completed — Thank You!",
+                                "text" => "<p><strong>Dear {$firstName},</strong></p>
+                               <p>Thank you for completing your {$planDuration}-day <strong>Master</strong> investment plan. This is a premium tier — our relationship managers are available to guide your next investment move.</p>
+                               <p>Respectfully,<br>" . SITE_TITLE . " Support Team</p>"
+                            ],
+                            "FOREX TECH" => [
+                                "subject" => "Your Forex Tech Plan Has Completed — Congratulations!",
+                                "text" => "<p><strong>Dear {$firstName},</strong></p>
+                               <p>Congratulations on completing your {$planDuration}-day <strong>Forex Tech</strong> investment plan. We hope the results met your expectations — consider reinvesting or contacting us for tailored options.</p>
+                               <p>Best regards,<br>" . SITE_TITLE . " Support Team</p>"
+                            ]
+                        ];
+
+                        if (isset($messages[$planName])) {
+                            $this->Mail_model->send_mail($email, $messages[$planName]["subject"], $messages[$planName]["text"]);
+                        } else {
+                            // default fallback email
+                            $subject = "Investment Plan Completed";
+                            $text = "<p><strong>Dear {$firstName},</strong></p>
+                         <p>Your <strong>{$plan['name']}</strong> plan ({$planDuration} days) has completed. Thank you for investing with " . SITE_TITLE . ".</p>
+                         <p>Best regards,<br>" . SITE_TITLE . " Support Team</p>";
+                            $this->Mail_model->send_mail($email, $subject, $text);
+                        }
                     }
                 }
             }
@@ -186,5 +193,4 @@ class Schedule extends CI_Controller
         }
         fclose($fh);
     }
-
 }
