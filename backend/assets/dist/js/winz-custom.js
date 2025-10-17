@@ -387,7 +387,7 @@ function invest(ele, plan, min, max) {
     } else {
         ele.html("<i class='fa fa-spinner fa-spin'></i> Processing");
         __("btn-invest").attr("disabled", "disabled");
-        $.post(base_url + "home/invest", { "plan": plan, "amount": amount }, function (data) {
+        $.post(base_url + "backend/home/invest", { "plan": plan, "amount": amount }, function (data) {
             if (data['status']) {
                 msg(data['msg'], "alert-success", 1, _("msg"));
                 processAjax(base_url + "ajax/get_balance", "", _("main-balance"));
