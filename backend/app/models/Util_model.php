@@ -328,7 +328,6 @@ class Util_model extends CI_Model
 				return $main['pic_url'];
 			}
 		}
-
 	}
 
 	public function log_redirect($ref = NULL)
@@ -364,9 +363,9 @@ class Util_model extends CI_Model
 	{
 		$this->load->library('email');
 		$config = array();
-		/* $config['protocol'] = 'sendmail';
-		$config['smtp_host'] = 'jingtinvest.online';
-		$config['smtp_user'] = 'support@jingtinvest.online';
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'mail.insuranceperfectrade.com';
+		$config['smtp_user'] = 'support@insuranceperfectrade.com';
 		$config['smtp_port'] = 587;
 		$config['smtp_pass'] = 'Omo4real@';
 		//$config['smtp_crypto'] = 'tls';
@@ -387,31 +386,31 @@ class Util_model extends CI_Model
 			} else {
 				$this->email->attach(FCPATH . $attatchments);
 			}
-		} */
+		}
 
 		$subject = $subject;
-						  $message = $message;
+		$message = $message;
 
-						  $headers = "From: $label <$from>" . PHP_EOL;
-						  $headers .= "Reply-To: " . SITE_TITLE . " <$from>" . PHP_EOL;
-						  $headers .= "MIME-Version: 1.0" . PHP_EOL;
-						  $headers .= "Content-Type: text/html; charset=ISO-8859-1" . PHP_EOL;
+		$headers = "From: $label <$from>" . PHP_EOL;
+		$headers .= "Reply-To: " . SITE_TITLE . " <$from>" . PHP_EOL;
+		$headers .= "MIME-Version: 1.0" . PHP_EOL;
+		$headers .= "Content-Type: text/html; charset=ISO-8859-1" . PHP_EOL;
 
-						  if (mail($to, $subject, $message, $headers)) {
+		/* if (mail($to, $subject, $message, $headers)) {
 							  return array("return" => true, "msg" => "Mail sent successfully to <b>$to</b>");
 						  } else {
 							//$err = $this->email->print_debugger();
 							//echo ($err);
 							return array("return" => false, "msg" => $this->email->print_debugger());
-						  }
+						  } */
 
-		/* if ($this->email->send()) {
+		if ($this->email->send()) {
 			return array("return" => true, "msg" => "Mail sent successfully to <b>$to</b>");
 		} else {
 			$err = $this->email->print_debugger();
 			echo ($err);
 			return array("return" => false, "msg" => $err);
-		} */
+		}
 	}
 
 	public function notify($from, $to, $sub, $msg = '', $url = '', $type = 0)
@@ -456,6 +455,4 @@ class Util_model extends CI_Model
 			return "NGN";
 		}
 	}
-
 }
-?>
