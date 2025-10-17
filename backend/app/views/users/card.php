@@ -48,7 +48,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-xs-12 text-center">
-                                <img src="/assets/img/jtinvest_card_template.png" style="width: 100%; height: 100%"/>
+                                <img src="./assets/img/jtinvest_card_template.png" style="width: 100%; height: 100%"/>
                             </div>
                         </div>
                     </div>

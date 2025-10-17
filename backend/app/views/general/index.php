@@ -785,7 +785,7 @@ window.smartsupp||(function(d) {
                     <div class="col-lg-6 col-md-12 chart-img">
                         <!-- <div class="btcwdgt-chart" ></div> -->
 
-                        <iframe src="/transaction-history-pane" style="width: 100%; border: 0; height: 250px;"></iframe>
+                        <iframe src="./transaction-history-pane" style="width: 100%; border: 0; height: 250px;"></iframe>
                     </div>
                 </div>
             </div>
