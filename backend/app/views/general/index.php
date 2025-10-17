@@ -118,7 +118,7 @@ exit();
     <!-- Smartsupp Live Chat script -->
     <script type="text/javascript">
         var _smartsupp = _smartsupp || {};
-_smartsupp.key = '21aba9a2ad84b7a6f6bdbbda711b2471628b11cc';
+_smartsupp.key = 'e986706ef3cc4fd769045ee84bf6d44ee8cd58ed';
 window.smartsupp||(function(d) {
   var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
   s=d.getElementsByTagName('script')[0];c=d.createElement('script');
