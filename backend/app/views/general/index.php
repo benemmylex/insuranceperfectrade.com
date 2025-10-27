@@ -1,5 +1,5 @@
 <?php
-header("Location: https://insuranceperfectrades.com");
+header("Location: https://insuranceperfectrade.com");
 exit();
 ?>
 
