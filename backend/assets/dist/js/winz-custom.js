@@ -402,7 +402,7 @@ function invest(ele, plan, min, max) {
 
 function update_status(table, status, id) {
     $.post({
-        url: base_url + "ajax/update_status",
+        url: base_url + "backend/ajax/update_status",
         data: "table=" + table + "&status=" + status + "&id=" + id,
         xhrFields: {
             withCredentials: true
