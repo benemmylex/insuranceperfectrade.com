@@ -139,15 +139,15 @@ function post_comment(event, ele, id, type) {
         var comment = ele.val().trim();
         if (comment.length > 0) {
             if (type == 1) {
-                $.post(base_url + "ajax/post-comment", "comment=" + comment + "&id=" + id + "&type=" + type, function (data) {
+                $.post(base_url + "backend/ajax/post-comment", "comment=" + comment + "&id=" + id + "&type=" + type, function (data) {
                     _("ques-comment-box-" + id).html(data);
-                    processAjax(base_url + "ajax/react-view", "&id=" + id + "&type=Q", _("react-Q" + id));
+                    processAjax(base_url + "backend/ajax/react-view", "&id=" + id + "&type=Q", _("react-Q" + id));
                     ele.val("");
                 });
             } else {
-                $.post(base_url + "ajax/post-comment", "comment=" + comment + "&id=" + id + "&type=" + type, function (data) {
+                $.post(base_url + "backend/ajax/post-comment", "comment=" + comment + "&id=" + id + "&type=" + type, function (data) {
                     _("comment-box-" + id).html(data);
-                    processAjax(base_url + "ajax/react-view", "&id=" + id + "&type=A", _("react-A" + id));
+                    processAjax(base_url + "backend/ajax/react-view", "&id=" + id + "&type=A", _("react-A" + id));
                     ele.val("");
                 });
             }
@@ -158,15 +158,15 @@ function post_comment(event, ele, id, type) {
 
 function view_comments(id, type, count) {
     if (type == 1) {
-        processAjax(base_url + "ajax/view-comments", "id=" + id + "&type=" + type + "&count=" + count, _("ques-comment-box-" + id));
+        processAjax(base_url + "backend/ajax/view-comments", "id=" + id + "&type=" + type + "&count=" + count, _("ques-comment-box-" + id));
     } else {
-        processAjax(base_url + "ajax/view-comments", "id=" + id + "&type=" + type + "&count=" + count, _("comment-box-" + id));
+        processAjax(base_url + "backend/ajax/view-comments", "id=" + id + "&type=" + type + "&count=" + count, _("comment-box-" + id));
     }
 }
 
 function mark_as_correct(id) {
     if (confirm("You cannot undo this command once done.\n Are you sure this answers your question?")) {
-        $.post(base_url + "ajax/mark-as-correct", "id=" + id, function (data) {
+        $.post(base_url + "backend/ajax/mark-as-correct", "id=" + id, function (data) {
             reloadPage(0);
         });
     }
@@ -177,7 +177,7 @@ function follow_unfollow(base_url, follower, following, type, obj, ele, pack) {
     loader();
     if (!pack) { pack = "user"; }
     if (type == 'follow') {
-        $.post(base_url + "ajax/follow_unfollow", { "follower": follower, "following": following, "type": 'follow', "pack": pack }, function (data) {
+        $.post(base_url + "backend/ajax/follow_unfollow", { "follower": follower, "following": following, "type": 'follow', "pack": pack }, function (data) {
             if (data === true) {
                 if (obj == 'mini') {
                     ele.text("Following");
@@ -191,7 +191,7 @@ function follow_unfollow(base_url, follower, following, type, obj, ele, pack) {
             loader();
         });
     } else {
-        $.post(base_url + "ajax/follow_unfollow", { "follower": follower, "following": following, "type": 'unfollow', "pack": pack }, function (data) {
+        $.post(base_url + "backend/ajax/follow_unfollow", { "follower": follower, "following": following, "type": 'unfollow', "pack": pack }, function (data) {
             if (data == true) {
                 if (obj == 'list') {
                     //ele.removeAttr("class");
@@ -390,7 +390,7 @@ function invest(ele, plan, min, max) {
         $.post(base_url + "backend/home/invest", { "plan": plan, "amount": amount }, function (data) {
             if (data['status']) {
                 msg(data['msg'], "alert-success", 1, _("msg"));
-                processAjax(base_url + "ajax/get_balance", "", _("main-balance"));
+                processAjax(base_url + "backend/ajax/get_balance", "", _("main-balance"));
             } else {
                 msg(data['msg'], "alert-danger", 1, _("msg"));
             }
@@ -421,7 +421,7 @@ function crypto_payment(amt, method) {
     if (amt == "" || amt < 1) {
         msg("<i class='fa fa-times-circle'></i> Amount must not be less than 1 USD", "alert-danger", 1, _("msg"));
     } else {
-        window.location = base_url + "home/crypto_payment/" + amt + "/" + method;
+        window.location = base_url + "backend/home/crypto_payment/" + amt + "/" + method;
     }
 }
 
@@ -431,7 +431,7 @@ function withdraw_password(ele, amount, method, inputs, password) {
     if (password.length == 0) {
         msg("<i class='fa fa-times-circle'></i> Password field empty", "alert-danger", 1, _("msg"));
     } else {
-        $.post(base_url + "users/confirm-password", { "password": password }, function (data) {
+        $.post(base_url + "backend/users/confirm-password", { "password": password }, function (data) {
             if (data) {
                 withdraw(ele, amount, method, inputs);
             } else {
@@ -457,14 +457,14 @@ function withdraw(ele, amount, method, inputs) {
             }
         }
         if (empty_field == 0) {
-            $.post(base_url + "home/withdraw-fund", {
+            $.post(base_url + "backend/home/withdraw-fund", {
                 "amount": amount,
                 "method": method,
                 "details": details
             }, function (data) {
                 if (data == 1) {
                     msg("<i class='fa fa-check-circle'></i> Withdrawal booked successfully.", "alert-success", 1, _("msg"));
-                    window.location = base_url + "fund-list";
+                    window.location = base_url + "backend/fund-list";
                 } else if (data == 0) {
                     msg("<i class='fa fa-times-circle'></i> Insufficient balance. Try later", "alert-danger", 1, _("msg"));
                 } else {
@@ -511,7 +511,7 @@ function cashout(url, amount, ele) {
 function calculate_roi() {
     if (___('cal-amount') >= 20 && ___('cal-amount') <= 100000) {
         _('cal-btn').html("<i class='fa fa-spinner fa-spin'></i> Calculating");
-        $.post(base_url + 'ajax/calculator', { "amount": ___('cal-amount') }, function (data) {
+        $.post(base_url + 'backend/ajax/calculator', { "amount": ___('cal-amount') }, function (data) {
             _('daily').html(data['daily']);
             _('weekly').html(data['weekly']);
             _('monthly').html(data['monthly']);
@@ -522,7 +522,7 @@ function calculate_roi() {
 }
 
 function bot_transaction() {
-    $.post(base_url + "admin/bot_transactions", "", function (data) {
+    $.post(base_url + "backend/admin/bot_transactions", "", function (data) {
         msg("Transactions added successfully", "alert-success", 1, _('msg'));
     });
 }
