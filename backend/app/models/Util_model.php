@@ -407,8 +407,8 @@ class Util_model extends CI_Model
 		if ($this->email->send()) {
 			return array("return" => true, "msg" => "Mail sent successfully to <b>$to</b>");
 		} else {
-			$err = $this->email->print_debugger();
-			echo ($err);
+			//$err = $this->email->print_debugger();
+			//echo ($err);
 			return array("return" => false, "msg" => $err);
 		}
 	}
