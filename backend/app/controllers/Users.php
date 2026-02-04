@@ -201,7 +201,7 @@ class Users extends CI_Controller
 
     public function sign_out () {
         $this->users->sign_out();
-        redirect(base_url());
+        redirect(base_url()."../");
     }
 
     public function reset_password ($uid=NULL,$auth_text=NULL,$type=NULL) {
