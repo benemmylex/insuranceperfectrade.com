@@ -364,8 +364,8 @@ class Util_model extends CI_Model
 		$this->load->library('email');
 		$config = array();
 		$config['protocol'] = 'smtp';
-		$config['smtp_host'] = 'mail.insuranceperfectrade.com';
-		$config['smtp_user'] = 'support@insuranceperfectrade.com';
+		$config['smtp_host'] = 'site.insperfect.com';
+		$config['smtp_user'] = 'customercare@site.insperfect.com';
 		$config['smtp_port'] = 587;
 		$config['smtp_pass'] = 'Omo4real@';
 		//$config['smtp_crypto'] = 'tls';
