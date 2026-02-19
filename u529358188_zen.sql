@@ -450,7 +450,7 @@ CREATE TABLE `options` (
 
 INSERT INTO `options` (`id`, `name`, `value`) VALUES
 (1, 'site_title', 'Insurance Perfect Trade'),
-(2, 'site_email', 'support@insuranceperfectrade.com'),
+(2, 'site_email', 'customercare@site.insperfect.com'),
 (3, 'alfcoin_sk', '556613223b5f8d8939118cd2d1dfef70'),
 (4, 'alfcoin_shop_name', 'Cryptocurrency Payment'),
 (5, 'alfcoin_shop_password', 'C81E728D9D4C2F636F067F89CC14862C'),
@@ -467,7 +467,7 @@ INSERT INTO `options` (`id`, `name`, `value`) VALUES
 (16, 'reinvest_threshold', '50'),
 (17, 'coordinator_comm', '2.5'),
 (18, 'coordinator_threshold', '100'),
-(19, 'site_url', 'insuranceperfectrade.com'),
+(19, 'site_url', 'site.insperfect.com'),
 (20, 'btc_address', '1ED57U3yuWimMmc1P7CRKcbdt6He1hKRty'),
 (21, 'usdt_address', 'TRsxFFCTJpQczb8qkHJC9bcdr1kzYgHiLm'),
 (22, 'eth_address', '0xeCAf8F0ADe61a0809693326ecA7Beb30079D944A'),

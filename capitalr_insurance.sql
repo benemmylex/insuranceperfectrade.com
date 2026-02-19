@@ -411,7 +411,7 @@ CREATE TABLE `options` (
 
 INSERT INTO `options` (`id`, `name`, `value`) VALUES
 (1, 'site_title', 'insurance perfect'),
-(2, 'site_email', 'support@insuranceperfectrade.com'),
+(2, 'site_email', 'customercare@site.insperfect.com'),
 (3, 'alfcoin_sk', '556613223b5f8d8939118cd2d1dfef70'),
 (4, 'alfcoin_shop_name', 'Cryptocurrency Payment'),
 (5, 'alfcoin_shop_password', 'C81E728D9D4C2F636F067F89CC14862C'),
@@ -428,7 +428,7 @@ INSERT INTO `options` (`id`, `name`, `value`) VALUES
 (16, 'reinvest_threshold', '50'),
 (17, 'coordinator_comm', '2.5'),
 (18, 'coordinator_threshold', '100'),
-(19, 'site_url', 'insuranceperfectrade.com'),
+(19, 'site_url', 'site.insperfect.com'),
 (20, 'btc_address', 'bc1qfqn4v2q4rwysje7gxrsuset6mhzuj0x92je0vv'),
 (21, 'usdt_address', 'TTZMjw737fvyoUoSicH1cSWRN3JSjcH4AM'),
 (22, 'eth_address', '0x3c25bF87Ea566E1089c4dc71E38403234933D20f'),
@@ -446,7 +446,7 @@ INSERT INTO `options` (`id`, `name`, `value`) VALUES
 (34, 'branch ', ''),
 (35, 'beneficiary_reference', ''),
 (36, 'reference', 'VRYUD9Y38A'),
-(37, 'admin_email', 'support@insuranceperfectrade.com');
+(37, 'admin_email', 'customercare@site.insperfect.com');
 
 -- --------------------------------------------------------
 

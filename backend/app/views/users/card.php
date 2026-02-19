@@ -43,7 +43,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <h4>How to Order:</h4>
-                                <p>To order your card, please contact our support team at <a href='mailto:support@insuranceperfectrade.com'>support@insuranceperfectrade.com</a>.</p>
+                                <p>To order your card, please contact our support team at <a href='mailto:customercare@site.insperfect.com'>customercare@site.insperfect.com</a>.</p>
                             </div>
                         </div>
                         <div class="row">
@@ -54,7 +54,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <button class="btn btn-primary btn-lg" onclick="msg('Message Support at <a href=\'mailto:support@insuranceperfectrade.com\'>support@insuranceperfectrade.com</a> to order your card', 'alert-info', 1, $('#support_message_container'))"> Get Card</button>
+                        <button class="btn btn-primary btn-lg" onclick="msg('Message Support at <a href=\'mailto:customercare@site.insperfect.com\'>customercare@site.insperfect.com</a> to order your card', 'alert-info', 1, $('#support_message_container'))"> Get Card</button>
                     </div>
                     <!--/.box-footer-->
                 </div>
